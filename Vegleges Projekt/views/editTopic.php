@@ -1,8 +1,13 @@
 <?php
-session_start();
-include_once 'Database.php';
-include_once 'User.php';
 
+use models\Database;
+use models\User;
+
+session_start();
+include_once '../models/Database.php';
+include_once '../models/User.php';
+
+// Ha nincs bejelentkezve a felhasználó, irányítjuk a login oldalra
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit;
@@ -15,32 +20,37 @@ $user = new User($db);
 $userId = $_SESSION['user_id'];
 $userData = $user->getUserById($userId);
 
+// Ha nem találjuk a felhasználót, kijelentkeztetjük
 if (!$userData) {
     header('Location: logout.php');
     exit;
 }
 
+// Ha nincs ID a GET paraméterek között, irányítjuk a főoldalra
 if (!isset($_GET['id'])) {
     header('Location: index.php');
     exit;
 }
 
 $topicId = intval($_GET['id']);
-$query = "SELECT id, name, description, user_id FROM categories WHERE id = :id";
+$query = "SELECT name, description, user_id FROM categories WHERE id = :id";
 $stmt = $db->prepare($query);
 $stmt->bindParam(':id', $topicId);
 $stmt->execute();
 $topic = $stmt->fetch(PDO::FETCH_ASSOC);
 
+// Ha nem találjuk a topikot vagy nem a felhasználó hozta létre, visszairányítjuk a főoldalra
 if (!$topic || $topic['user_id'] != $userId) {
     header('Location: index.php');
     exit;
 }
 
+// Topik frissítése
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_topic'])) {
     $newName = trim($_POST['topic_name']);
     $newDescription = trim($_POST['topic_description']);
 
+    // Ha mindkét mező ki van töltve, végrehajtjuk a frissítést
     if (!empty($newName) && !empty($newDescription)) {
         $updateTopicQuery = "UPDATE categories SET name = :name, description = :description WHERE id = :id";
         $updateTopicStmt = $db->prepare($updateTopicQuery);
@@ -66,14 +76,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_topic'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Topik szerkesztése</title>
-    <link rel="stylesheet" href="editTopic-style.css">
+    <link rel="stylesheet" href="../public/css/editTopic-style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
 <body>
 <header>
     <a href="dashboard.php" class="home-link">Főoldal</a>
     <div class="nav-links">
-        <a href="logout.php"><i class="fa-solid fa-right-to-bracket"></i></a>
+        <a href="../controllers/logout.php"><i class="fa-solid fa-right-to-bracket"></i></a>
         <a href="profile.php"><i class="fa-solid fa-user"></i></a>
     </div>
 </header>

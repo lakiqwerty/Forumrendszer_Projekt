@@ -1,0 +1,160 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema forum
+-- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `forum` ;
+
+-- -----------------------------------------------------
+-- Schema forum
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `forum` DEFAULT CHARACTER SET utf8mb4 ;
+USE `forum` ;
+
+-- -----------------------------------------------------
+-- Table `forum`.`categories`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `forum`.`categories` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `name` (`name` ASC) VISIBLE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `forum`.`roles`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `forum`.`roles` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `name` (`name` ASC) VISIBLE)
+ENGINE = InnoDB
+AUTO_INCREMENT = 2
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `forum`.`users`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `forum`.`users` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(50) NOT NULL,
+  `password` VARCHAR(255) NOT NULL,
+  `email` VARCHAR(100) NOT NULL,
+  `role_id` INT(11) NULL DEFAULT 3,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `username` (`username` ASC) VISIBLE,
+  UNIQUE INDEX `email` (`email` ASC) VISIBLE,
+  INDEX `role_id` (`role_id` ASC) VISIBLE,
+  CONSTRAINT `users_ibfk_1`
+    FOREIGN KEY (`role_id`)
+    REFERENCES `forum`.`roles` (`id`)
+    ON DELETE SET NULL)
+ENGINE = InnoDB
+AUTO_INCREMENT = 17
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `forum`.`follows`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `forum`.`follows` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `user_id` INT(11) NOT NULL,
+  `follow_type` ENUM('category', 'topic', 'user') NOT NULL,
+  `follow_id` INT(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `user_id` (`user_id` ASC) VISIBLE,
+  CONSTRAINT `follows_ibfk_1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `forum`.`users` (`id`)
+    ON DELETE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `forum`.`topics`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `forum`.`topics` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `user_id` INT(11) NOT NULL,
+  `category_id` INT(11) NULL DEFAULT NULL,
+  `title` VARCHAR(255) NOT NULL,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+  PRIMARY KEY (`id`),
+  INDEX `user_id` (`user_id` ASC) VISIBLE,
+  INDEX `category_id` (`category_id` ASC) VISIBLE,
+  CONSTRAINT `topics_ibfk_1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `forum`.`users` (`id`)
+    ON DELETE CASCADE,
+  CONSTRAINT `topics_ibfk_2`
+    FOREIGN KEY (`category_id`)
+    REFERENCES `forum`.`categories` (`id`)
+    ON DELETE SET NULL)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `forum`.`posts`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `forum`.`posts` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `topic_id` INT(11) NOT NULL,
+  `user_id` INT(11) NOT NULL,
+  `content` TEXT NOT NULL,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+  `status` ENUM('approved', 'deleted') NULL DEFAULT 'approved',
+  PRIMARY KEY (`id`),
+  INDEX `topic_id` (`topic_id` ASC) VISIBLE,
+  INDEX `user_id` (`user_id` ASC) VISIBLE,
+  CONSTRAINT `posts_ibfk_1`
+    FOREIGN KEY (`topic_id`)
+    REFERENCES `forum`.`topics` (`id`)
+    ON DELETE CASCADE,
+  CONSTRAINT `posts_ibfk_2`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `forum`.`users` (`id`)
+    ON DELETE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `forum`.`ratings`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `forum`.`ratings` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `post_id` INT(11) NOT NULL,
+  `user_id` INT(11) NOT NULL,
+  `value` TINYINT(4) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `post_id` (`post_id` ASC, `user_id` ASC) VISIBLE,
+  INDEX `user_id` (`user_id` ASC) VISIBLE,
+  CONSTRAINT `ratings_ibfk_1`
+    FOREIGN KEY (`post_id`)
+    REFERENCES `forum`.`posts` (`id`)
+    ON DELETE CASCADE,
+  CONSTRAINT `ratings_ibfk_2`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `forum`.`users` (`id`)
+    ON DELETE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

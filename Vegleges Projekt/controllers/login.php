@@ -1,8 +1,13 @@
 <?php
-session_start();
-include_once 'Database.php';
-include_once 'User.php';
 
+use models\Database;
+use models\User;
+
+session_start();
+include_once '../models/Database.php';
+include_once '../models/User.php';
+
+// Adatbázis kapcsolat
 $database = new Database();
 $db = $database->getConnection();
 
@@ -15,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($userId) {
         $_SESSION['user_id'] = $userId;
-        header('Location: dashboard.php');
+        header('Location: ../views/dashboard.php'); // Átirányítás a főoldalra
         exit;
     } else {
         $error_message = "Hibás felhasználónév vagy jelszó!";
@@ -29,8 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bejelentkezés</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="login-style.css">
+    <link rel="stylesheet" href="../public/css/style.css">
+    <link rel="stylesheet" href="../public/css/login-style.css">
 </head>
 <body>
 <header>

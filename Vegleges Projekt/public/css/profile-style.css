@@ -1,3 +1,4 @@
+/* Reset for profile page */
 * {
     margin: 0;
     padding: 0;
@@ -10,6 +11,7 @@ body {
     color: #786d6d;
 }
 
+/* Header styling */
 header {
     background-color: #2c2d2e;
     color: white;
@@ -28,14 +30,6 @@ header a {
 
 header a:hover {
     text-decoration: underline;
-}
-
-header .back-link {
-    text-align: left;
-}
-
-header .logout-link {
-    text-align: right;
 }
 
 header .header-container {
@@ -77,6 +71,7 @@ h1 {
     text-decoration: underline;
 }
 
+/* Main section for profile page */
 .profile-main {
     display: flex;
     flex-direction: column;
@@ -94,23 +89,23 @@ h1 {
     color: white;
 }
 
-.user-topics, .user-comments {
+section {
     width: 100%;
     margin-bottom: 30px;
 }
 
-.user-topics h2, .user-comments h2 {
+section h2 {
     font-size: 2em;
     margin-bottom: 15px;
     color: white;
 }
 
-.topic-list, .comment-list {
+ul {
     list-style-type: none;
     padding-left: 0;
 }
 
-.topic-item, .comment-item {
+li {
     background-color: white;
     padding: 15px;
     margin-bottom: 15px;
@@ -118,40 +113,42 @@ h1 {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.topic-item a {
+li a {
     font-size: 1.5em;
     font-weight: bold;
     color: rgba(0, 0, 0, 0.84);
     text-decoration: none;
 }
 
-.topic-item a:hover {
+li a:hover {
     text-decoration: underline;
 }
 
-.topic-description {
+li p {
     font-size: 1.1em;
     margin-top: 10px;
-}
-
-.comment-item strong {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 5px;
-}
-
-.comment-item p {
-    font-size: 1.1em;
-    margin-bottom: 10px;
-}
-
-.comment-item small {
-    font-size: 0.9em;
-    color: #888;
 }
 
 .error {
     color: red;
     font-weight: bold;
     margin-top: 20px;
+}
+/* Gombok és linkek */
+button, .edit-link, .delete-link {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+button {
+    background-color: #a14040;
+    color: white;
+    border: none;
+    padding: 3px 7px;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+button:hover {
+    background-color: #b30000;
 }

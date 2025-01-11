@@ -131,3 +131,53 @@ main {
 .create-topic-btn:hover {
     background-color: #b30000;
 }
+.favorite-link {
+    color: red;
+    margin-left: 10px;
+    text-decoration: none;
+}
+
+.favorite-link i {
+    margin-right: 5px;
+}
+
+.favorite-list {
+    list-style: none;
+    padding: 0;
+}
+
+.favorite-item {
+    margin-bottom: 15px;
+}
+
+.favorite-item a {
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+}
+/* Új topik létrehozása gomb stílusa */
+.create-topic-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.create-topic-button {
+    display: inline-block;
+    background-color: #e42e2e;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.create-topic-button:hover {
+    background-color: #b30000;
+    transform: scale(1.05);
+    text-decoration: none;
+}

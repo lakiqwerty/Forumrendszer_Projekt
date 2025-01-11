@@ -1,0 +1,144 @@
+/* Általános stílusok */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: rgba(71, 70, 71, 0.53);
+    color: #333;
+}
+
+header {
+    background-color: #2c2d2e;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1em;
+}
+
+header a:hover {
+    text-decoration: underline;
+}
+
+header .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+main {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background: rgba(7, 7, 7, 0.35);
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Téma leírás */
+.topic-description {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+/* Kommentek dobozai */
+.comment-box {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.reply-box {
+    margin: 10px 0 10px 20px;
+    padding: 10px;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    background-color: #f1f1f1;
+}
+
+/* Gombok és linkek */
+button, .edit-link, .delete-link {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+button {
+    background-color: #a14040;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+button:hover {
+    background-color: #b30000;
+}
+
+.edit-link, .delete-link {
+    margin-right: 10px;
+    font-size: 0.9em;
+    color: #007bff;
+}
+
+.edit-link:hover, .delete-link:hover {
+    text-decoration: underline;
+}
+
+/* Hozzászólás űrlap */
+textarea {
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    font-size: 1em;
+    resize: vertical;
+}
+
+.reply-form textarea {
+    background-color: #fefefe;
+    border-color: #ccc;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+.reply-form {
+    margin-top: 10px;
+}
+
+.reply-form button {
+    margin-top: 5px;
+}
+
+/* Hierarchia vizuális jelzése */
+.comment-box strong, .reply-box strong {
+    font-weight: bold;
+}
+
+.comment-box p, .reply-box p {
+    margin: 5px 0;
+}
+
+/* Hibák megjelenítése */
+p.error {
+    color: red;
+    font-weight: bold;
+}

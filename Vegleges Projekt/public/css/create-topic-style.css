@@ -1,3 +1,4 @@
+/* General css for the Create Topic page */
 * {
     margin: 0;
     padding: 0;
@@ -10,6 +11,7 @@ body {
     color: #333;
 }
 
+/* Header Styling */
 header {
     background-color: #2c2d2e;
     color: white;
@@ -45,6 +47,7 @@ header .nav-links a:hover {
     text-decoration: underline;
 }
 
+/* Main Section for Create Topic Form */
 .create-topic-main {
     display: flex;
     flex-direction: column;
@@ -99,6 +102,7 @@ header .nav-links a:hover {
     background-color: #b30000;
 }
 
+/* Error message styling */
 .error {
     color: red;
     font-weight: bold;

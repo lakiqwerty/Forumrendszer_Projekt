@@ -1,5 +1,8 @@
 <?php
-class Topic {
+namespace models;
+
+class Topic
+{
     private $conn;
     private $table_name = "topics";
 
@@ -9,11 +12,13 @@ class Topic {
     public $title;
     public $created_at;
 
-    public function __construct($db) {
+    public function __construct($db)
+    {
         $this->conn = $db;
     }
 
-    public function create() {
+    public function create()
+    {
         $query = "INSERT INTO " . $this->table_name . " (user_id, category_id, title) 
                   VALUES (:user_id, :category_id, :title)";
 
@@ -29,7 +34,8 @@ class Topic {
         return false;
     }
 
-    public function getAllTopics() {
+    public function getAllTopics()
+    {
         $query = "SELECT * FROM " . $this->table_name;
 
         $stmt = $this->conn->prepare($query);
@@ -37,15 +43,6 @@ class Topic {
 
         return $stmt;
     }
-
-    public function getTopicsByCategory() {
-        $query = "SELECT * FROM " . $this->table_name . " WHERE category_id = :category_id";
-
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':category_id', $this->category_id);
-        $stmt->execute();
-
-        return $stmt;
-    }
 }
+
 ?>

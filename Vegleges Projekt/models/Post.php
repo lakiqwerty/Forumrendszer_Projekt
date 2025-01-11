@@ -1,5 +1,8 @@
 <?php
-class Post {
+namespace models;
+
+class Post
+{
     private $conn;
     private $table_name = "posts";
 
@@ -10,11 +13,13 @@ class Post {
     public $created_at;
     public $status;
 
-    public function __construct($db) {
+    public function __construct($db)
+    {
         $this->conn = $db;
     }
 
-    public function create() {
+    public function create()
+    {
         $query = "INSERT INTO " . $this->table_name . " (topic_id, user_id, content, status) 
                   VALUES (:topic_id, :user_id, :content, :status)";
 
@@ -31,7 +36,8 @@ class Post {
         return false;
     }
 
-    public function getPostsByTopic() {
+    public function getPostsByTopic()
+    {
         $query = "SELECT * FROM " . $this->table_name . " WHERE topic_id = :topic_id";
 
         $stmt = $this->conn->prepare($query);
@@ -41,4 +47,5 @@ class Post {
         return $stmt;
     }
 }
+
 ?>

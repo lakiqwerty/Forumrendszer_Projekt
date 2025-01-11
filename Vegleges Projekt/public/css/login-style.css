@@ -1,3 +1,4 @@
+/* Reset for the login page */
 * {
     margin: 0;
     padding: 0;
@@ -10,6 +11,7 @@ body {
     color: #333;
 }
 
+/* Header Styles for the login page */
 header {
     background-color: #2c2d2e;
     color: white;
@@ -21,6 +23,7 @@ header h1 {
     font-size: 2em;
 }
 
+/* Main Section Styling for login */
 .login-main {
     display: flex;
     justify-content: center;
@@ -28,7 +31,7 @@ header h1 {
     min-height: 80vh;
     background-color: #e9ecef;
     padding: 20px;
-    flex-direction: column;
+    flex-direction: column; /* Align elements vertically */
 }
 
 .login-form {
@@ -75,8 +78,9 @@ header h1 {
     margin-bottom: 20px;
 }
 
+/* Register link styling */
 .register-link {
-    margin-bottom: 20px;
+    margin-bottom: 20px; /* Space between the link and form */
     font-size: 1em;
     text-align: center;
 }

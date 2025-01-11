@@ -1,3 +1,4 @@
+/* General css for the Edit Comment page */
 * {
     margin: 0;
     padding: 0;
@@ -6,10 +7,11 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: rgba(71, 70, 71, 0.53);
+    background-color:rgba(71, 70, 71, 0.53);
     color: #333;
 }
 
+/* Header Styling */
 header {
     background-color: #2c2d2e;
     color: white;
@@ -31,6 +33,7 @@ header a:hover {
     text-decoration: underline;
 }
 
+/* Main Section for Edit Comment Page */
 main {
     display: flex;
     flex-direction: column;
@@ -40,6 +43,7 @@ main {
     min-height: 80vh;
 }
 
+/* Title */
 h1 {
     width: 100%;
     text-align: center;
@@ -48,6 +52,7 @@ h1 {
     color: #333;
 }
 
+/* Form styling */
 form {
     width: 100%;
     max-width: 900px;
@@ -66,9 +71,10 @@ form label {
     color: #333;
 }
 
-form input, form textarea {
+form textarea {
     width: 100%;
     max-width: 900px;
+    height: 150px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -92,6 +98,7 @@ form button:hover {
     background-color: #b30000;
 }
 
+/* Error message styling */
 .error {
     color: red;
     font-weight: bold;

@@ -1,11 +1,17 @@
 <?php
-session_start();
-include_once 'Database.php';
-include_once 'User.php';
 
+use models\Database;
+use models\User;
+
+session_start();
+include_once '../models/Database.php';
+include_once '../models/User.php';
+
+// Adatbázis kapcsolat
 $database = new Database();
 $db = $database->getConnection();
 
+// Regisztrációs folyamat
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -29,8 +35,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Regisztráció</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="register-style.css">
+    <link rel="stylesheet" href="../public/css/style.css">
+    <link rel="stylesheet" href="../public/css/register-style.css">
 </head>
 <body>
 <header>
